@@ -8,6 +8,18 @@ const routes = [
       {
         path: '',
         component: () => import('../views/front/HomeView.vue')
+      },
+      {
+        path: '/donate',
+        component: () => import('../views/front/DonateItem.vue')
+      },
+      {
+        path: '/about',
+        component: () => import('../views/front/AboutView.vue')
+      },
+      {
+        path: '/cart',
+        component: () => import('../views/front/CartView.vue')
       }
     ]
   },
@@ -19,7 +31,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  linkActiveClass: 'active'
 })
 
 export default router
