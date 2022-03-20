@@ -15,7 +15,14 @@
           <h5 class="card-title">{{product.title}}</h5>
           <p class="card-text">NT$ {{product.price}}</p>
         </div>
-      <a href="#" class="btn btn-primary d-inline">加入捐款項目</a>
+        <div class="input-group">
+          <select class="form-select" :id="product.id">
+                          <!-- option的標籤加入:selected="item.qty===num" 選擇當前的值，num迴圈有20個，如果qty數量跟num一樣時，就選擇這個值；但之後這行被刪了，因為有select標籤綁定v-model綁定 -->
+                          <option selected disabled>請選擇</option>
+                          <option :value="num" v-for='num in 20' :key='`${num}${product.id}+model`' >{{num}}</option>
+                        </select>
+        </div>
+      <button href="#" class="btn btn-primary d-inline" @click='addCart(product.id)' >加入捐款項目</button>
     </div>
     </div>
   </div>
@@ -47,6 +54,27 @@ export default {
       console.log(this.product)
       const productModal = this.$refs.productModal
       productModal.openModal()
+    },
+    addCart (id) {
+      const select = document.querySelector(`#${id}`)
+      const selectNum = select.selectedIndex
+      if (selectNum > 0) {
+        const data = {
+          product_id: id,
+          qty: selectNum
+        }
+        console.log(data)
+        const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart`
+        this.$http.post(url, { data })
+          .then(res => {
+            console.log(res)
+          })
+          .catch(err => {
+            console.log(err)
+          })
+      } else {
+        alert('請選擇數量')
+      }
     }
   },
   mounted () {
