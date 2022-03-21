@@ -16,17 +16,17 @@
           <p class="card-text">NT$ {{product.price}}</p>
         </div>
         <div class="input-group">
-          <select class="form-select" :id="product.id">
+          <select class="form-select" :id="product.id+'select'" @change="buttonStatus(product.id, 'original')">
                           <!-- option的標籤加入:selected="item.qty===num" 選擇當前的值，num迴圈有20個，如果qty數量跟num一樣時，就選擇這個值；但之後這行被刪了，因為有select標籤綁定v-model綁定 -->
                           <option selected disabled>請選擇</option>
-                          <option :value="num" v-for='num in 20' :key='`${num}${product.id}+model`' >{{num}}</option>
+                          <option :value="num" v-for='num in 20' :key='`${num}${product.id}select`'>{{num}}</option>
                         </select>
         </div>
-      <button href="#" class="btn btn-primary d-inline" @click='addCart(product.id)' >加入捐款項目</button>
+      <button href="#" class="btn btn-primary d-inline" @click='addCart(product.id, "original")' :disabled="buttonDisabled" :id='product.id+"button"'>加入捐款項目</button>
     </div>
     </div>
   </div>
-  <donateModal :item="product" ref="productModal"></donateModal>
+  <donateModal :item="product" ref="productModal" @button-status='buttonStatus' @add-cart='addCart'></donateModal>
 </template>
 
 <script>
@@ -34,6 +34,7 @@ import donateModal from '@/components/DonateModal.vue'
 export default {
   data () {
     return {
+      buttonDisabled: true,
       products: [],
       product: {}
     }
@@ -42,6 +43,21 @@ export default {
     donateModal
   },
   methods: {
+    test (id, comments) {
+      let button = {}
+      if (comments === 'button') {
+        button = document.querySelector(`#${id}button`)
+      } else if (comments === 'buttonModel') {
+        button = document.querySelector(`#${id}buttonModel`)
+      }
+      console.log(button)
+      const select = document.querySelector(`#${id}`)
+      const selectNum = select.selectedIndex
+      if (selectNum > 0) {
+        console.log(button)
+        button.disabled = false
+      }
+    },
     getProducts () {
       this.$http(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/products/all`)
         .then(res => {
@@ -55,25 +71,51 @@ export default {
       const productModal = this.$refs.productModal
       productModal.openModal()
     },
-    addCart (id) {
-      const select = document.querySelector(`#${id}`)
+    buttonStatus (id, comments) {
+      let button = {}
+      let select = {}
+      if (comments === 'original') {
+        button = document.querySelector(`#${id}button`)
+        select = document.querySelector(`#${id}select`)
+      } else {
+        button = document.querySelector(`#${id}buttonModel`)
+        select = document.querySelector(`#${id}selectModel`)
+      }
       const selectNum = select.selectedIndex
+      if (selectNum > 0) {
+        console.log(button)
+        button.disabled = false
+      }
+    },
+    addCart (id, comment) {
+      let select = {}
+      let selectNum = {}
+      if (comment === 'original') {
+        select = document.querySelector(`#${id}select`)
+        selectNum = select.selectedIndex
+        this.addCartRunApi(id, selectNum)
+      } else {
+        select = document.querySelector(`#${id}selectModel`)
+        selectNum = select.selectedIndex
+        this.addCartRunApi(id, selectNum)
+        this.$refs.productModal.hideModal(id)
+      }
+    },
+    addCartRunApi (id, selectNum) {
       if (selectNum > 0) {
         const data = {
           product_id: id,
           qty: selectNum
         }
-        console.log(data)
         const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart`
         this.$http.post(url, { data })
           .then(res => {
             console.log(res)
+            alert('已加入捐款項目')
           })
           .catch(err => {
             console.log(err)
           })
-      } else {
-        alert('請選擇數量')
       }
     }
   },

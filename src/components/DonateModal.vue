@@ -19,7 +19,11 @@
           <p>{{item.description}}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">加入捐款項目</button>
+          <select class="form-select" :id="item.id+'selectModel'" @change="buttonStatus(item.id, 'buttonModel')">
+            <option selected disabled>請選擇</option>
+            <option :value="num" v-for='num in 20' :key='`${num}${item.id}selectModel`'>{{num}}</option>
+          </select>
+          <button type="button" class="btn btn-primary" :id='item.id+"buttonModel"' disabled @click='addCart(item.id, "model")'>加入捐款項目</button>
         </div>
       </div>
     </div>
@@ -35,8 +39,18 @@ export default {
     openModal () {
       this.modal.show()
     },
-    hideModal () {
+    hideModal (id) {
       this.modal.hide()
+      const button = document.querySelector(`#${id}buttonModel`)
+      const select = document.querySelector(`#${id}selectModel`)
+      button.disabled = true
+      select.value = '請選擇'
+    },
+    addCart (id, comments) {
+      this.$emit('add-cart', id, comments)
+    },
+    buttonStatus (id, comments) {
+      this.$emit('button-status', id, comments)
     }
   },
   mounted () {
