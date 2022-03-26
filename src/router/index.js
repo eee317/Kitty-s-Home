@@ -19,7 +19,25 @@ const routes = [
       },
       {
         path: '/cart',
-        component: () => import('../views/front/CartView.vue')
+        component: () => import('../views/front/CartLayout.vue'),
+        children: [
+          {
+            path: '',
+            component: () => import('../views/front/CartView.vue')
+          },
+          {
+            path: 'form',
+            component: () => import('../views/front/CartForm.vue')
+          },
+          {
+            path: 'payment',
+            component: () => import('../views/front/CartPayment.vue')
+          },
+          {
+            path: 'finish',
+            component: () => import('../views/front/CartPayFinish.vue')
+          }
+        ]
       }
     ]
   },
