@@ -16,94 +16,90 @@
       </div>
     </div>
   </div>
-  <From>
-     <ul class="list-unstyled">
-            <li class="mb-3">
-              <label for="email" class="form-label">
-                <span class="text-danger">*</span>
-                Email
-              </label>
-              <Field type="email" id="email" name="Email"
-                class="form-control panya-input"
-                :class="{ 'is-invalid': errors['Email'] }"
-                placeholder="請輸入 Email"
-                rules="email|required"
-                inputmode="email"
-                v-model="user.email"></Field>
-              <ErrorMessage name="Email" class="invalid-feedback"></ErrorMessage>
-            </li>
-     </ul>
-  </From>
-  <form>
+  <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')">
     <fieldset class="row mb-3">
-      <legend class="col-form-label col-sm-2 pt-0">捐款單位</legend>
+      <legend class="col-form-label col-sm-2 pt-0"><span class="text-danger">*</span> 捐款單位</legend>
       <div class="col-sm-10">
         <div class="form-check">
-          <input
+          <FieldValidate
             class="form-check-input"
             type="radio"
-            name="gridRadios"
+            name="捐款單位"
             id="gridRadios1"
             value="company"
-            v-model='userData.identity'
-          />
+            v-model='userData.user.identity'
+            :class="{'is-invalid': errors['捐款單位']}" rules="required"
+          ></FieldValidate>
           <label class="form-check-label" for="gridRadios1">
             公司行號
           </label>
         </div>
         <div class="form-check">
-          <input
+          <FieldValidate
             class="form-check-input"
             type="radio"
-            name="gridRadios"
+            name="捐款單位"
             id="gridRadios2"
             value="personal"
-            v-model='userData.identity'
-          />
+            v-model='userData.user.identity'
+            :class="{'is-invalid': errors['捐款單位']}" rules="required"
+          ></FieldValidate>
           <label class="form-check-label" for="gridRadios2">
             個人
           </label>
+          <ErrorMessage name="捐款單位" class="invalid-feedback"></ErrorMessage>
         </div>
       </div>
     </fieldset>
     <div class="row mb-3">
-      <label for="inputName" class="col-sm-2 col-form-label">姓名</label>
+      <label for="inputName" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 姓名</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputName" v-model="userData.user"/>
+        <FieldValidate name="姓名" :class="{'is-invalid': errors['姓名']}" rules="required"
+        type="text" class="form-control" id="inputName" v-model="userData.user.name"></FieldValidate>
+        <ErrorMessage name="姓名" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
-    <div class="row mb-3" v-show='userData.identity==="company"'>
-      <label for="inputCompany" class="col-sm-2 col-form-label">公司名稱</label>
+    <div class="row mb-3" v-show='userData.user.identity==="company"'>
+      <label for="inputCompany" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 公司名稱</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputCompany" v-model="userData.companyName"/>
+        <FieldValidate name="公司名稱" :class="{'is-invalid': errors['公司名稱']}" :rules="{'required': userData.user.identity==='company'}"
+        type="text" class="form-control" id="inputCompany" v-model="userData.user.companyName"></FieldValidate>
+        <ErrorMessage name="公司名稱" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
-    <div class="row mb-3" v-show='userData.identity==="company"'>
-      <label for="inputCompanyID" class="col-sm-2 col-form-label">統編</label>
+    <div class="row mb-3" v-show='userData.user.identity==="company"'>
+      <label for="inputCompanyID" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 統編</label>
       <div class="col-sm-10">
-        <input type="number" class="form-control" id="inputCompanyID" v-model="userData.companyID"/>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputEmail3" v-model="userData.email"/>
-      </div>
-    </div>
-    <div class="row mb-3" v-show='userData.identity==="company"'>
-      <label for="inputPhone" class="col-sm-2 col-form-label"
-        >公司電話</label
-      >
-      <div class="col-sm-10">
-        <input type="tel" class="form-control" id="inputPhone" v-model="userData.companyPhone"/>
+        <FieldValidate name="統編" :class="{'is-invalid': errors['公司名稱']}" :rules="{'required': userData.user.identity==='company'}"
+        type="number" class="form-control" id="inputCompanyID" v-model="userData.user.companyID"></FieldValidate>
+        <ErrorMessage name="統編" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
     <div class="row mb-3">
-      <label for="inputPhone" class="col-sm-2 col-form-label"
-        >聯絡電話</label
+      <label for="email" class="col-sm-2 col-form-label"><span class="text-danger">*</span> Email</label>
+      <div class="col-sm-10">
+        <FieldValidate name="Email" :class="{ 'is-invalid': errors['Email'] }"
+        rules="email|required"
+        type="email" class="form-control" id="email" v-model="userData.user.email"></FieldValidate>
+        <ErrorMessage name="Email" class="invalid-feedback"></ErrorMessage>
+      </div>
+    </div>
+    <div class="row mb-3" v-show='userData.user.identity==="company"'>
+      <label for="inputPhone" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 公司電話</label
       >
       <div class="col-sm-10">
-        <input type="tel" class="form-control" id="inputPhone" v-model="userData.tel"/>
+        <FieldValidate name="公司電話" :class="{ 'is-invalid': errors['公司電話'] }"
+        :rules="{'required': userData.user.identity==='company'}"
+        type="tel" class="form-control" id="inputPhone" v-model="userData.user.companyPhone"></FieldValidate>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="inputPhone" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 聯絡電話</label>
+      <div class="col-sm-10">
+        <FieldValidate name="聯絡電話" :class="{ 'is-invalid': errors['聯絡電話'] }"
+        rules='required'
+        type="tel" class="form-control" id="inputPhone" v-model="userData.user.tel"></FieldValidate>
+        <ErrorMessage name="聯絡電話" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
     <div class="row mb-3">
@@ -112,24 +108,19 @@
         捐款收據寄送地址</label
       >
       <div class="col-sm-10">
-        <input type="tel" class="form-control" id="inputAddress" v-model="userData.address"/>
+        <FieldValidate name="捐款收據寄送地址" :class="{ 'is-invalid': errors['捐款收據寄送地址'] }" rules='required'
+        type="tel" class="form-control" id="inputAddress" v-model="userData.user.address"></FieldValidate>
+        <ErrorMessage name="捐款收據寄送地址" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
-  </form>
+  <button type='submit' class="btn btn-primary float-end">下一步 結帳</button>
+  </FormValidate>
   <router-link
     type="button"
     class="btn btn-primary"
-    to="/cart/form"
+    to="/cart"
     @click="clickNext('cart')"
-    >上一步</router-link
-  >
-  <router-link
-    type="button"
-    class="btn btn-primary float-end"
-    to="/cart/payment"
-    @click="clickNext('payment')"
-    >下一步 結帳</router-link
-  >
+    >上一步</router-link>
 </template>
 <script>
 import emitter from '@/libs/emitter'
@@ -138,14 +129,17 @@ export default {
     return {
       cartData: {},
       userData: {
-        identity: '',
-        companyPhone: '',
-        companyName: '',
-        companyID: '',
-        user: '',
-        email: '',
-        tel: '',
-        address: ''
+        user: {
+          identity: '',
+          companyPhone: '',
+          companyName: '',
+          companyID: '',
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
+        },
+        message: ''
       }
     }
   },
@@ -154,14 +148,31 @@ export default {
   },
   methods: {
     clickNext (text) {
-      this.formChack()
-      emitter.emit('clickNext', text)
+      if (text === 'payment') {
+        const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/order`
+        this.$http.post(url, { data: this.userData })
+          .then(res => {
+            console.log(res)
+            this.formChack()
+            this.$refs.form.resetForm()
+            emitter.emit('clickNext', text)
+            this.$router.push('/cart/payment')
+          })
+          .catch(err => {
+            console.dir(err)
+          })
+      } else {
+        emitter.emit('clickNext', text)
+      }
     },
     getCart () {
       const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(url)
         .then(res => {
           this.cartData = res.data.data
+          if (this.cartData?.carts?.length === 0) {
+            this.$router.push('/donate')
+          }
           console.log(res)
         })
         .catch(err => {
@@ -169,10 +180,10 @@ export default {
         })
     },
     formChack () {
-      if (this.userData.identity === 'personal') {
-        this.userData.companyPhone = ''
-        this.userData.companyName = ''
-        this.userData.companyID = ''
+      if (this.userData.user.identity === 'personal') {
+        this.userData.user.companyPhone = ''
+        this.userData.user.companyName = ''
+        this.userData.user.companyID = ''
       }
     }
   }
