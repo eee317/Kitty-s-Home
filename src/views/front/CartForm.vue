@@ -18,7 +18,7 @@
   </div>
   <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')">
     <fieldset class="row mb-3">
-      <legend class="col-form-label col-sm-2 pt-0"><span class="text-danger">*</span> 捐款單位</legend>
+      <legend class="col-form-label col-sm-2 pt-0">捐款單位 <span class="text-danger">*</span></legend>
       <div class="col-sm-10">
         <div class="form-check">
           <FieldValidate
@@ -52,7 +52,7 @@
       </div>
     </fieldset>
     <div class="row mb-3">
-      <label for="inputName" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 姓名</label>
+      <label for="inputName" class="col-sm-2 col-form-label">姓名 <span class="text-danger">*</span></label>
       <div class="col-sm-10">
         <FieldValidate name="姓名" :class="{'is-invalid': errors['姓名']}" rules="required"
         type="text" class="form-control" id="inputName" v-model="userData.user.name"></FieldValidate>
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="row mb-3" v-show='userData.user.identity==="company"'>
-      <label for="inputCompany" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 公司名稱</label>
+      <label for="inputCompany" class="col-sm-2 col-form-label">公司名稱 <span class="text-danger">*</span></label>
       <div class="col-sm-10">
         <FieldValidate name="公司名稱" :class="{'is-invalid': errors['公司名稱']}" :rules="{'required': userData.user.identity==='company'}"
         type="text" class="form-control" id="inputCompany" v-model="userData.user.companyName"></FieldValidate>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <div class="row mb-3" v-show='userData.user.identity==="company"'>
-      <label for="inputCompanyID" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 統編</label>
+      <label for="inputCompanyID" class="col-sm-2 col-form-label">統編 <span class="text-danger">*</span></label>
       <div class="col-sm-10">
         <FieldValidate name="統編" :class="{'is-invalid': errors['公司名稱']}" :rules="{'required': userData.user.identity==='company'}"
         type="number" class="form-control" id="inputCompanyID" v-model="userData.user.companyID"></FieldValidate>
@@ -76,7 +76,7 @@
       </div>
     </div>
     <div class="row mb-3">
-      <label for="email" class="col-sm-2 col-form-label"><span class="text-danger">*</span> Email</label>
+      <label for="email" class="col-sm-2 col-form-label">Email <span class="text-danger">*</span></label>
       <div class="col-sm-10">
         <FieldValidate name="Email" :class="{ 'is-invalid': errors['Email'] }"
         rules="email|required"
@@ -85,7 +85,7 @@
       </div>
     </div>
     <div class="row mb-3" v-show='userData.user.identity==="company"'>
-      <label for="inputPhone" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 公司電話</label
+      <label for="inputPhone" class="col-sm-2 col-form-label">公司電話 <span class="text-danger">*</span></label
       >
       <div class="col-sm-10">
         <FieldValidate name="公司電話" :class="{ 'is-invalid': errors['公司電話'] }"
@@ -94,7 +94,7 @@
       </div>
     </div>
     <div class="row mb-3">
-      <label for="inputPhone" class="col-sm-2 col-form-label"><span class="text-danger">*</span> 聯絡電話</label>
+      <label for="inputPhone" class="col-sm-2 col-form-label">聯絡電話 <span class="text-danger">*</span></label>
       <div class="col-sm-10">
         <FieldValidate name="聯絡電話" :class="{ 'is-invalid': errors['聯絡電話'] }"
         rules='required'
@@ -104,13 +104,28 @@
     </div>
     <div class="row mb-3">
       <label for="inputAddress" class="col-sm-2 col-form-label"
-        ><span class="text-danger">*</span>
-        捐款收據寄送地址</label
+        >捐款收據寄送地址 <span class="text-danger">*</span></label
       >
       <div class="col-sm-10">
         <FieldValidate name="捐款收據寄送地址" :class="{ 'is-invalid': errors['捐款收據寄送地址'] }" rules='required'
         type="tel" class="form-control" id="inputAddress" v-model="userData.user.address"></FieldValidate>
         <ErrorMessage name="捐款收據寄送地址" class="invalid-feedback"></ErrorMessage>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="method" class="col-sm-2 col-form-label"
+        >捐款方式 <span class="text-danger">*</span></label
+      >
+      <div class='col-sm-10'>
+        <FieldValidate v-model='userData.user.method'
+        as="select" name='捐款方式' :class="{ 'is-invalid': errors['捐款方式'] }" rules='required'
+        class="form-select" aria-label="Default select example" id="method">
+          <option selected value=''>捐款方式</option>
+          <option value="信用卡">信用卡</option>
+          <option value="ATM">ATM</option>
+          <option value="超商捐款">超商捐款</option>
+        </FieldValidate>
+      <ErrorMessage name="捐款方式" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
   <button type='submit' class="btn btn-primary float-end">下一步 結帳</button>
@@ -137,7 +152,8 @@ export default {
           name: '',
           email: '',
           tel: '',
-          address: ''
+          address: '',
+          method: ''
         },
         message: ''
       }
