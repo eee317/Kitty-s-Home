@@ -1,6 +1,6 @@
 <template>
   <frontNavbar></frontNavbar>
-<div class="container">
+<div class="container-fluid  g-0 min-vh-100">
 <router-view></router-view>
 </div>
 
