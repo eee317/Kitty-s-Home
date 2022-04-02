@@ -123,7 +123,7 @@
           <option selected value=''>捐款方式</option>
           <option value="信用卡">信用卡</option>
           <option value="ATM">ATM</option>
-          <option value="超商捐款">超商捐款</option>
+          <option value="超商代碼捐款">超商代碼捐款</option>
         </FieldValidate>
       <ErrorMessage name="捐款方式" class="invalid-feedback"></ErrorMessage>
       </div>
@@ -156,7 +156,8 @@ export default {
           method: ''
         },
         message: ''
-      }
+      },
+      orderID: ''
     }
   },
   mounted () {
@@ -172,7 +173,7 @@ export default {
             this.formChack()
             this.$refs.form.resetForm()
             emitter.emit('clickNext', text)
-            this.$router.push('/cart/payment')
+            this.$router.push(`/cart/payment/${res.data.orderId}`)
           })
           .catch(err => {
             console.dir(err)

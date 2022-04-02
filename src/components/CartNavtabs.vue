@@ -26,7 +26,8 @@ export default {
       cart: 1,
       form: 0,
       payment: 0,
-      finish: 0
+      finish: 0,
+      orderId: this.$route.path
     }
   },
   mounted () {
@@ -53,7 +54,6 @@ export default {
         this.finish = 1
       }
     })
-    console.log(this.$route.path)
     if (this.$route.path === '/cart') {
       this.cart = 1
       this.form = 0
@@ -64,16 +64,21 @@ export default {
       this.form = 1
       this.payment = 0
       this.finish = 0
-    } else if (this.$route.path === '/cart/payment') {
+    } else if (this.$route.path === `/cart/supermarket/${this.$route.params.id}` || this.$route.path === `/cart/ATM/${this.$route.params.id}`) {
       this.cart = 0
       this.form = 0
-      this.payment = 1
-      this.finish = 0
+      this.payment = 0
+      this.finish = 1
     } else if (this.$route.path === '/cart/finish') {
       this.cart = 0
       this.form = 0
       this.payment = 0
       this.finish = 1
+    } else if (this.$route.path === this.orderId) {
+      this.cart = 0
+      this.form = 0
+      this.payment = 1
+      this.finish = 0
     }
   }
 }
