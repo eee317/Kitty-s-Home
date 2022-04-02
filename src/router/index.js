@@ -30,8 +30,16 @@ const routes = [
             component: () => import('../views/front/CartForm.vue')
           },
           {
-            path: 'payment',
+            path: 'payment/:id',
             component: () => import('../views/front/CartPayment.vue')
+          },
+          {
+            path: 'supermarket/:id',
+            component: () => import('../views/front/CartPaySupermarket.vue')
+          },
+          {
+            path: 'ATM/:id',
+            component: () => import('../views/front/CartPayATM.vue')
           },
           {
             path: 'finish',
