@@ -1,5 +1,4 @@
 <template>
-  <h2>捐款資料</h2>
   <div class="card mb-3" style="">
     <div class="row g-0">
       <div class="col-md-3">

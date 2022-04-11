@@ -1,7 +1,12 @@
 <template>
-  <h2>購物車</h2>
-  <cartNavtabs></cartNavtabs>
-  <router-view></router-view>
+  <div class="container mt-5">
+    <cartNavtabs></cartNavtabs>
+    <div class="row justify-content-around">
+      <div class="col-10">
+      <router-view></router-view>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import cartNavtabs from '@/components/CartNavtabs.vue'

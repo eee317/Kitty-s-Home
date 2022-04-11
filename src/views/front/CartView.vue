@@ -1,45 +1,55 @@
 <template>
+<div class="container">
   <p v-if='cartData?.carts?.length===0'>目前尚未加入捐款款項</p>
-  <div v-else>
-    <button type='button' class="btn btn-primary float-end mt-3" @click="deleteCartAll">刪除全部</button>
-    <table class="table">
-      <thead>
+  <div v-else class='mt-4'>
+    <button type='button' class="btn btn-outline-secondary css-button my-3 float-end" @click="deleteCartAll">刪除全部</button>
+    <table class="table mb-5">
+        <thead class='fs-5 text-primary'>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">捐款品項</th>
+            <th scope="col">數量</th>
+            <th scope="col">單價</th>
+            <th scope="col">金額</th>
+          </tr>
+        </thead>
+        <tbody v-for="(item, index) in cartData.carts" :key="item.product.id">
+          <tr>
+            <th scope="row">{{index+1}}</th>
+            <td>{{item.product.title}}</td>
+            <td>
+              <a href="#"><span class="bi bi-dash" @click.prevent="editCartItem(item.id, 'reduceOne', item.qty)"></span></a>
+              <div class="d-inline p-3 text-primary">{{item.qty}}</div>
+              <a href="#"><span class="bi bi-plus-lg" @click.prevent="editCartItem(item.id, 'addOne', item.qty)"></span></a>
+            </td>
+            <td>{{item.product.price}}</td>
+            <td>{{item.total}}</td>
+          </tr>
+        </tbody>
+        <tfoot class='fs-5 text-success'>
         <tr>
-          <th scope="col"></th>
-          <th scope="col">捐款品項</th>
-          <th scope="col">數量</th>
-          <th scope="col">單價</th>
-          <th scope="col">金額</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>捐款總額</td>
+          <td>{{cartData.total}}</td>
         </tr>
-      </thead>
-      <tbody v-for="(item, index) in cartData.carts" :key="item.product.id">
-        <tr>
-          <th scope="row">{{index+1}}</th>
-          <td>{{item.product.title}}</td>
-          <td>
-            <a href="#"><span class="bi bi-dash" @click.prevent="editCartItem(item.id, 'reduceOne', item.qty)"></span></a>
-            <div class="d-inline p-3">{{item.qty}}</div>
-            <a href="#"><span class="bi bi-plus-lg" @click.prevent="editCartItem(item.id, 'addOne', item.qty)"></span></a>
-          </td>
-          <td>{{item.product.price}}</td>
-          <td>{{item.total}}</td>
-        </tr>
-      </tbody>
-      <tfoot>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>捐款總額</td>
-        <td>{{cartData.total}}</td>
-      </tr>
-    </tfoot>
+      </tfoot>
     </table>
+    <router-link type='button' class="btn btn-primary" to="/donate">返回捐款款項</router-link>
+    <router-link :class="{disabled:cartData?.carts?.length===0}"
+      type='button' class="btn btn-primary float-end" to="/cart/form"
+      @click='clickNext("form")'>下一步 填寫捐款資料</router-link>
   </div>
-<router-link type='button' class="btn btn-primary" to="/donate">返回捐款款項</router-link>
-<router-link :class="{disabled:cartData?.carts?.length===0}"
-type='button' class="btn btn-primary float-end" to="/cart/form" @click='clickNext("form")'>下一步 填寫捐款資料</router-link>
+</div>
 </template>
+<style lang="scss" scoped>
+.css-button {
+  &:hover {
+    color: white;
+  }
+}
+</style>
 <script>
 import emitter from '@/libs/emitter'
 export default {
