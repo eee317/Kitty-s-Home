@@ -1,23 +1,39 @@
 <template>
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a :class="cart?'active':''"
-      class="nav-link" aria-current="page" href="#">捐款項目</a>
+  <ul class="justify-content-center d-flex justify-content-center align-items-center
+  list-unstyled mb-4 text-black-50">
+    <li>
+      <p :class="cart?'active bg-light text-success':''"
+      class="" aria-current="page">捐款項目</p>
     </li>
-    <li class="nav-item">
-      <a :class="form?'active':''"
-      class="nav-link" href="#">填寫表單</a>
+    <li>
+      <p :class="form?'active bg-light text-success':''"
+      class="">填寫表單</p>
     </li>
-    <li class="nav-item">
-      <a :class='payment?"active":""'
-      class="nav-link" href="#">結帳</a>
+    <li>
+      <p :class='payment?"active bg-light text-success":""'
+      class="" href="#">結帳</p>
     </li>
-    <li class="nav-item">
-      <a :class='finish?"active":""'
-      class="nav-link" href="#">完成捐款</a>
+    <li>
+      <p :class='finish?"active bg-light text-success":""'
+      class="">完成捐款</p>
     </li>
   </ul>
 </template>
+<style lang="scss" scoped>
+li {
+  padding: 10px;
+}
+.active {
+  font-size: 24px;
+  padding: 10px 20px 10px 20px;
+  border-style:solid;
+  border-width:0.1px;
+}
+.css-line {
+  border-style:solid;
+  border-width:0.1px;
+}
+</style>
 <script>
 import emitter from '@/libs/emitter'
 export default {
