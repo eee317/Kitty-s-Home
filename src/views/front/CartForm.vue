@@ -1,21 +1,18 @@
 <template>
-  <div class="card mb-3" style="">
+  <div class="card mb-5 bg-light">
     <div class="row g-0">
-      <div class="col-md-3">
-        <img src="https://images.unsplash.com/photo-1577238057554-2e120f4f63ab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-9">
+      <div class="">
         <div class="card-body">
-          <h5 class="card-title">捐款金額</h5>
+          <h5 class="card-title text-primary">捐款金額</h5>
           <div v-for="(item) in cartData.carts" :key="item.id+'cartForm'">
-          <p class="card-text">{{item.product.title}} {{item.qty}} {{item.product.unit}} {{item.total}}元</p>
+          <p class="card-text text-secondary">{{item.product.title}} {{item.qty}} {{item.product.unit}} {{item.total}}元</p>
           </div>
           <p class="card-text h6 text-primary mt-2"><small class="text-muted h6">捐款總金額 </small> {{cartData.total}}</p>
         </div>
       </div>
     </div>
   </div>
-  <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')">
+  <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')" class='text-primary'>
     <fieldset class="row mb-3">
       <legend class="col-form-label col-sm-2 pt-0">捐款單位 <span class="text-danger">*</span></legend>
       <div class="col-sm-10">
@@ -118,7 +115,7 @@
       <div class='col-sm-10'>
         <FieldValidate v-model='userData.user.method'
         as="select" name='捐款方式' :class="{ 'is-invalid': errors['捐款方式'] }" rules='required'
-        class="form-select" aria-label="Default select example" id="method">
+        class="form-select text-primary" aria-label="Default select example" id="method">
           <option selected value=''>捐款方式</option>
           <option value="信用卡">信用卡</option>
           <option value="ATM">ATM</option>
@@ -127,11 +124,11 @@
       <ErrorMessage name="捐款方式" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
-  <button type='submit' class="btn btn-primary float-end">下一步 結帳</button>
+  <button type='submit' class="btn btn-primary float-end mb-5">下一步 結帳</button>
   </FormValidate>
   <router-link
     type="button"
-    class="btn btn-primary"
+    class="btn btn-primary mb-5"
     to="/cart"
     @click="clickNext('cart')"
     >上一步</router-link>
