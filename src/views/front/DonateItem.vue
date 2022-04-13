@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='container-fluid'>
     <div class="img-fluid
             d-flex
             justify-content-center
@@ -11,10 +11,9 @@
       class='text-white'>捐款項目</h1>
       <p class='text-white'>請選先選擇數量，再加入捐款</p>
     </div>
-  </div>
   <div class="container my-5">
     <div class="row g-4">
-      <div class="col-12 col-sm-6 col-md-4" v-for="product in products" :key='product.id'>
+      <div class="col-12 col-sm-6 col-md-4 d-flex justify-content-center" v-for="product in products" :key='product.id'>
         <div class="card text-dark border-0" style="max-width: 18rem;">
           <!-- <img :src="product.imageUrl" class="card-img-top" :alt="product.title"> -->
           <div class='position-relative d-grid gap-2'
@@ -48,6 +47,7 @@
     </div>
     <donateModal :item="product" ref="productModal" @button-status='buttonStatus' @add-cart='addCart'></donateModal>
   </div>
+  </div>
 </template>
 <style lang="scss" scoped>
 .btn-outline-secondary {
@@ -58,6 +58,7 @@
 </style>
 <script>
 import donateModal from '@/components/DonateModal.vue'
+import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
@@ -124,6 +125,7 @@ export default {
           .then(res => {
             console.log(res)
             alert('已加入捐款項目')
+            emitter.emit('render-cart')
           })
           .catch(err => {
             console.log(err)

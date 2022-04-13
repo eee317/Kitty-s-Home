@@ -1,6 +1,33 @@
 <template>
 <div class="container">
-  <p v-if='cartData?.carts?.length===0'>目前尚未加入捐款款項</p>
+  <div v-if='cartData?.carts?.length===0'>
+    <div class="
+            p-3 p-md-5
+            d-flex
+            justify-content-center
+            align-items-center
+            flex-column
+            text-center
+            lh-lg
+          ">
+      <h2 class='text-secondary'>目前尚未加入捐款款項</h2>
+      <p class='text-secondary'>加入捐款款項，才能完成後續的捐款動作唷！</p>
+    </div>
+    <img
+      class="img-fluid"
+      src="@/libs/img/notYetJoinedDonate.svg"
+      alt=""
+    />
+    <router-link
+    type='button' class="btn btn-primary
+            mt-1
+            d-flex
+            justify-content-center
+            align-items-center
+            flex-column
+            text-center
+            lh-lg" to="/donate">查看捐款款項</router-link>
+  </div>
   <div v-else class='mt-4'>
     <button type='button' class="btn btn-outline-secondary css-button my-3 float-end" @click="deleteCartAll">刪除全部</button>
     <table class="table mb-5">
@@ -13,9 +40,9 @@
             <th scope="col">金額</th>
           </tr>
         </thead>
-        <tbody v-for="(item, index) in cartData.carts" :key="item.product.id">
+        <tbody v-for="item in cartData.carts" :key="item.product.id">
           <tr>
-            <th scope="row">{{index+1}}</th>
+            <th scope="row"><i class="bi bi-trash3-fill" @click='deleteCartItem(item.id)' style="cursor: pointer;"></i></th>
             <td>{{item.product.title}}</td>
             <td>
               <a href="#"><span class="bi bi-dash" @click.prevent="editCartItem(item.id, 'reduceOne', item.qty)"></span></a>
@@ -93,6 +120,7 @@ export default {
       this.$http.put(url, { data })
         .then(res => {
           this.getCart()
+          emitter.emit('render-cart')
         })
         .catch(err => {
           console.log(err)
@@ -105,6 +133,7 @@ export default {
           console.log(res)
           alert('已刪除')
           this.getCart()
+          emitter.emit('render-cart')
         })
         .catch(err => {
           console.log(err)

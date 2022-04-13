@@ -1,6 +1,6 @@
 <template>
   <frontNavbar></frontNavbar>
-  <div class="container-fluid g-0 min-vh-100">
+  <div class="container-fluid min-vh-100 g-0">
     <router-view></router-view>
   </div>
   <footer class="bg-secondary" style="">
@@ -25,7 +25,6 @@
     </div>
   </footer>
 </template>
-
 <script>
 import frontNavbar from '@/components/FrontNavbar.vue'
 export default {
