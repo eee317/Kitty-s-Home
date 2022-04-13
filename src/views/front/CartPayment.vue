@@ -2,8 +2,8 @@
 <div>
   <table class="table">
     <thead>
-      <tr>
-        <th scope="row"><h2>捐款內容</h2></th>
+      <tr class="text-primary">
+        <th scope="row"><h2><i class="bi bi-file-earmark-check-fill me-2"></i>捐款內容</h2></th>
         <th scope="col">數量</th>
         <th scope="col">單價</th>
         <th scope="col">金額</th>
@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr v-for='(item) in userProducts' :key='item.id+"userProduct"'>
-        <th scope="row">{{item.product.title}}</th>
+        <th scope="row" class="text-primary">{{item.product.title}}</th>
         <td scope="col">{{item.qty}} {{item.product.unit}}</td>
         <td scope="col">{{item.product.price}}</td>
         <td scope="col">＄{{item.total}}</td>
@@ -19,55 +19,55 @@
     </tbody>
     <tfoot>
       <tr class='table-light'>
-        <th scope="row">捐款總金額</th>
+        <th scope="row" class="text-primary">捐款總金額</th>
         <td scope="col"></td>
         <td scope="col"></td>
-        <th scope="col">＄{{userOrder.total}}</th>
+        <th scope="col" class="text-success">＄{{userOrder.total}}</th>
       </tr>
     </tfoot>
   </table>
-  <table class="table">
+  <table class="table my-5">
   <thead>
     <tr>
-      <th scope="col"><h2>捐款資訊</h2></th>
+      <th scope="col" class="text-primary"><h2><i class="bi bi-file-earmark-text-fill me-2"></i>捐款資訊</h2></th>
       <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th scope="row">捐款編號</th>
+      <th scope="row" class="text-primary">捐款編號</th>
       <td>{{orderId}}</td>
     </tr>
     <tr>
-      <th scope="row">捐款建立日期</th>
+      <th scope="row" class="text-primary">捐款建立日期</th>
       <td colspan="2">{{creatDate(userOrder.create_at)}}</td>
     </tr>
     <tr>
-      <th scope="row">捐款建立時間</th>
+      <th scope="row" class="text-primary">捐款建立時間</th>
       <td colspan="2">{{creatTime(userOrder.create_at)}}</td>
     </tr>
     <tr>
-      <th scope="row">捐款者</th>
+      <th scope="row" class="text-primary">捐款者</th>
       <td colspan="2">{{userForm.name}}</td>
     </tr>
     <tr v-show="userForm.identity==='company'">
-      <th scope="row">捐款公司</th>
+      <th scope="row" class="text-primary">捐款公司</th>
       <td colspan="2">{{userForm.companyName}} 公司統編：{{userForm.companyID}}</td>
     </tr>
     <tr v-show="userForm.identity==='company'">
-      <th scope="row">捐款公司電話</th>
+      <th scope="row" class="text-primary">捐款公司電話</th>
       <td colspan="2">{{userForm.companyPhone}}</td>
     </tr>
     <tr>
-      <th scope="row">信箱</th>
+      <th scope="row" class="text-primary">信箱</th>
       <td colspan="2">{{userForm.email}}</td>
     </tr>
     <tr>
-      <th scope="row">聯絡電話</th>
+      <th scope="row" class="text-primary">聯絡電話</th>
       <td colspan="2">{{userForm.tel}}</td>
     </tr>
     <tr>
-      <th scope="row">付款方式</th>
+      <th scope="row" class="text-primary">付款方式</th>
       <td colspan="2">{{userForm.method}}</td>
     </tr>
   </tbody>
