@@ -74,9 +74,9 @@
 </table>
   <FormValidate v-slot="{ errors }" @submit="clickNext('finish')">
   <div class="card" v-if='userForm.method==="信用卡"'>
-    <h5 class="card-header">信用卡資訊</h5>
+    <h5 class="card-header text-primary bg-light">信用卡資訊</h5>
     <div class="card-body">
-      <h5 class="card-title">請輸入信用卡卡號</h5>
+      <h6 class="card-title text-primary">請輸入信用卡卡號</h6>
         <div class="row mt-4">
           <div class="col-2">
             <FieldValidate name="1" :class="{ 'is-invalid': errors['1'] }"
@@ -106,7 +106,7 @@
         <div class="row mt-4">
           <div class="col-2">
             <div class="mb-3">
-              <label for="formGroupExampleInput" class="form-label">日期</label>
+              <label for="formGroupExampleInput" class="form-label text-secondary">日期</label>
               <FieldValidate
                 name="cardDate" :class="{ 'is-invalid': errors['cardDate'] }"
                 rules='required'
@@ -116,10 +116,10 @@
           </div>
           <div class="col-2">
             <div class="mb-3">
-              <label for="cardEndNumber" class="form-label" >末3碼</label>
+              <label for="cardEndNumber" class="form-label text-secondary" >末3碼</label>
               <FieldValidate name="cardEndNumber" :class="{ 'is-invalid': errors['cardEndNumber'] }"
                 rules='required'
-                type="tel" class="form-control" id="cardEndNumber" maxlength="3">
+                type="password" class="form-control" id="cardEndNumber" maxlength="3">
               </FieldValidate>
             </div>
           </div>
@@ -152,6 +152,7 @@ export default {
       } else {
         this.$router.push(`/cart/supermarket/${this.$route.params.id}`)
       }
+      emitter.emit('render-cart')
     },
     getUserOrder () {
       this.orderId = this.$route.params.id
