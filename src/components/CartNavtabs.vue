@@ -3,19 +3,19 @@
   list-unstyled mb-4 text-black-50">
     <li>
       <p :class="cart?'active bg-light text-success':''"
-      class="" aria-current="page">捐款項目</p>
+      aria-current="page">捐款項目</p>
     </li>
     <li>
       <p :class="form?'active bg-light text-success':''"
-      class="">填寫表單</p>
+      >填寫表單</p>
     </li>
     <li>
       <p :class='payment?"active bg-light text-success":""'
-      class="" href="#">結帳</p>
+      >結帳</p>
     </li>
     <li>
       <p :class='finish?"active bg-light text-success":""'
-      class="">完成捐款</p>
+      >捐款</p>
     </li>
   </ul>
 </template>
