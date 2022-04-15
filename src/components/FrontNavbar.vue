@@ -1,27 +1,25 @@
 <template>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
-    <div class="col-4">
-          <img
-            style="cursor: pointer;"
-            @click='homePage'
-            class="img-fluid"
-            src="../libs/LOGO.svg"
-            alt=""
-          />
-    </div>
+      <div class="col-4">
+            <img
+              style="cursor: pointer;"
+              @click='homePage'
+              class="img-fluid"
+              src="../libs/LOGO.svg"
+              alt=""
+            />
+      </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <!-- <a class="nav-link active" aria-current="page" href="#">動物故事</a> -->
         <router-link class="nav-link mt-2" to="/about">關於我們</router-link>
-        <!-- <a class="nav-link" href="#">愛心名冊</a> -->
         <router-link class="nav-link mt-2" to="/donate">我要捐款</router-link>
         <router-link class="nav-link bi bi-bag-heart-fill fs-4 position-relative" to="/cart">
-          <p style='font-size:4px' class="p-1 position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger" v-for='num in cart' :key="num.id">
-          {{cartNum}}</p>
+          <span style='font-size:4px' class="p-1 position-absolute top-20 start-100 translate-middle badge rounded-pill bg-danger" v-for='num in cart' :key="num.id">
+          {{cartNum}}</span>
         </router-link>
       </div>
     </div>

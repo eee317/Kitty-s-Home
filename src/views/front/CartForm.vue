@@ -1,18 +1,14 @@
 <template>
-  <div class="card mb-5 bg-light">
-    <div class="row g-0">
-      <div class="">
-        <div class="card-body">
-          <h5 class="card-title text-primary">捐款金額</h5>
-          <div v-for="(item) in cartData.carts" :key="item.id+'cartForm'">
-          <p class="card-text text-secondary">{{item.product.title}} {{item.qty}} {{item.product.unit}} {{item.total}}元</p>
-          </div>
-          <p class="card-text h6 text-primary mt-2"><small class="text-muted h6">捐款總金額 </small> {{cartData.total}}</p>
-        </div>
+  <div class="card mb-5 ms-3 bg-light">
+    <div class="card-body">
+      <h5 class="card-title text-primary">捐款金額</h5>
+      <div v-for="(item) in cartData.carts" :key="item.id+'cartForm'">
+        <p class="card-text text-secondary">{{item.product.title}} {{item.qty}} {{item.product.unit}} {{item.total}}元</p>
       </div>
+      <p class="card-text h6 text-primary mt-2"><small class="text-muted h6">捐款總金額 </small> {{cartData.total}}</p>
     </div>
   </div>
-  <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')" class='text-primary'>
+  <FormValidate ref="form" v-slot="{ errors }" @submit="clickNext('payment')" class='text-primary ms-3'>
     <fieldset class="row mb-3">
       <legend class="col-form-label col-sm-2 pt-0">捐款單位 <span class="text-danger">*</span></legend>
       <div class="col-sm-10">
@@ -124,14 +120,14 @@
       <ErrorMessage name="捐款方式" class="invalid-feedback"></ErrorMessage>
       </div>
     </div>
-  <button type='submit' class="btn btn-primary float-end mb-5">下一步 結帳</button>
-  </FormValidate>
   <router-link
     type="button"
     class="btn btn-primary mb-5"
     to="/cart"
     @click="clickNext('cart')"
     >上一步</router-link>
+  <button type='submit' class="btn btn-primary float-end mb-5">下一步 結帳</button>
+  </FormValidate>
 </template>
 <script>
 import emitter from '@/libs/emitter'

@@ -1,9 +1,13 @@
 <template>
   <div class="container mt-5">
-    <cartNavtabs></cartNavtabs>
-    <div class="row justify-content-around">
-      <div class="col-10">
-      <router-view></router-view>
+    <div class="row">
+      <div class="col-12">
+          <cartNavtabs></cartNavtabs>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-11">
+          <router-view></router-view>
       </div>
     </div>
   </div>

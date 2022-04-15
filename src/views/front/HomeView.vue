@@ -18,9 +18,9 @@
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container g-3">
       <h3 class='d-flex justify-content-center m-5 text-primary'>您給予支持，我用心扶養</h3>
-      <div class="row g-3 mb-5">
+      <div class="row mb-5">
         <div class="col-12 col-md-6">
           <img
             class="img-fluid"

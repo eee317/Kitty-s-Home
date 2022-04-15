@@ -1,5 +1,4 @@
 <template>
-<div class="container">
   <div v-if='cartData?.carts?.length===0'>
     <div class="
             p-3 p-md-5
@@ -70,7 +69,6 @@
       type='button' class="btn btn-primary float-end" to="/cart/form"
       @click='clickNext("form")'>下一步</router-link>
   </div>
-</div>
 </template>
 <style lang="scss" scoped>
 .css-button {

@@ -12,10 +12,10 @@
       <p class='text-white'>請選先選擇數量，再加入捐款</p>
     </div>
   </div>
-    <div class="container">
-      <div class="row g-4 my-5">
-        <div class="col-12 col-sm-6 col-md-4" v-for="product in products" :key='product.id'>
-          <div class="card text-dark border-0" style="max-width: 18rem;">
+    <div class="container g-4">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-4 my-4" v-for="product in products" :key='product.id'>
+          <div class="card text-dark border-0">
             <!-- <img :src="product.imageUrl" class="card-img-top" :alt="product.title"> -->
             <div class='position-relative d-grid gap-2'
             :style="{backgroundImage:`url(${product.imageUrl})`}"

@@ -20,7 +20,7 @@
         本站僅供個人作品使用
         </p>
         <a class="text-white me-2 fs-5" href="mailto:eee317@gmail.com"><i class="bi bi-google"></i></a>
-        <a class='text-white ms-2 fs-5' href="https://github.com/eee317"><i class="bi bi-github"></i></a>
+        <a class='text-white ms-2 fs-5' href="https://github.com/eee317/Kitty-s-Home"><i class="bi bi-github"></i></a>
       </div>
     </div>
   </footer>
