@@ -10,7 +10,7 @@
             text-center
             lh-lg
           ">
-      <h2 class='text-secondary'>目前尚未加入捐款款項</h2>
+      <h2 class='text-secondary'>尚未加入捐款款項</h2>
       <p class='text-secondary'>加入捐款款項，才能完成後續的捐款動作唷！</p>
     </div>
     <img
@@ -28,7 +28,7 @@
             text-center
             lh-lg" to="/donate">查看捐款款項</router-link>
   </div>
-  <div v-else class='mt-4'>
+  <div v-else class='my-4'>
     <button type='button' class="btn btn-outline-secondary css-button my-3 float-end" @click="deleteCartAll">刪除全部</button>
     <table class="table mb-5">
         <thead class='fs-5 text-primary'>
@@ -42,12 +42,12 @@
         </thead>
         <tbody v-for="item in cartData.carts" :key="item.product.id">
           <tr>
-            <th scope="row"><i class="bi bi-trash3-fill" @click='deleteCartItem(item.id)' style="cursor: pointer;"></i></th>
+            <th scope="row"><i class="bi bi-trash3-fill" @click='deleteCartItem(item.id, item.product.title)' style="cursor: pointer;"></i></th>
             <td>{{item.product.title}}</td>
             <td>
-              <a href="#"><span class="bi bi-dash" @click.prevent="editCartItem(item.id, 'reduceOne', item.qty)"></span></a>
+              <a href="#"><span class="bi bi-dash" @click.prevent="editCartItem(item, 'reduceOne', item.qty)"></span></a>
               <div class="d-inline p-3 text-primary">{{item.qty}}</div>
-              <a href="#"><span class="bi bi-plus-lg" @click.prevent="editCartItem(item.id, 'addOne', item.qty)"></span></a>
+              <a href="#"><span class="bi bi-plus-lg" @click.prevent="editCartItem(item, 'addOne', item.qty)"></span></a>
             </td>
             <td>{{item.product.price}}</td>
             <td>{{item.total}}</td>
@@ -63,10 +63,12 @@
         </tr>
       </tfoot>
     </table>
+    <deleteCartItemModal :item="productTitle" ref='deleteCartItemModal' @get-cart='getCart'></deleteCartItemModal>
+    <deleteCaerAllModal ref='deleteCartAllModal' @get-cart='getCart'></deleteCaerAllModal>
     <router-link type='button' class="btn btn-primary" to="/donate">返回捐款款項</router-link>
     <router-link :class="{disabled:cartData?.carts?.length===0}"
       type='button' class="btn btn-primary float-end" to="/cart/form"
-      @click='clickNext("form")'>下一步 填寫捐款資料</router-link>
+      @click='clickNext("form")'>下一步</router-link>
   </div>
 </div>
 </template>
@@ -79,10 +81,17 @@
 </style>
 <script>
 import emitter from '@/libs/emitter'
+import deleteCartItemModal from '@/components/deleteCartItemModal.vue'
+import deleteCaerAllModal from '@/components/deleteCartAllModal.vue'
 export default {
+  components: {
+    deleteCartItemModal,
+    deleteCaerAllModal
+  },
   data () {
     return {
-      cartData: []
+      cartData: [],
+      productTitle: null
     }
   },
   mounted () {
@@ -100,12 +109,12 @@ export default {
           console.log(err)
         })
     },
-    editCartItem (id, comments, num) {
+    editCartItem (item, comments, num) {
       const itemNum = num
       let calculate = {}
       if (comments === 'reduceOne') {
         if (itemNum === 1) {
-          return this.deleteCartItem(id)
+          return this.deleteCartItem(item.id, item.product.title)
         } else {
           calculate = itemNum - 1
         }
@@ -113,10 +122,10 @@ export default {
         calculate = itemNum + 1
       }
       const data = {
-        product_id: id,
+        product_id: item.id,
         qty: calculate
       }
-      const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart/${id}`
+      const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart/${item.id}`
       this.$http.put(url, { data })
         .then(res => {
           this.getCart()
@@ -126,30 +135,22 @@ export default {
           console.log(err)
         })
     },
-    deleteCartItem (id) {
+    deleteCartItem (id, title) {
       const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.$http.delete(url)
         .then(res => {
-          console.log(res)
-          alert('已刪除')
-          this.getCart()
+          this.productTitle = title
           emitter.emit('render-cart')
+          const deleteCartItemModal = this.$refs.deleteCartItemModal
+          deleteCartItemModal.openModal()
         })
         .catch(err => {
           console.log(err)
         })
     },
     deleteCartAll () {
-      const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/carts`
-      this.$http.delete(url)
-        .then(res => {
-          console.log(res)
-          alert('已刪除全部捐款項目')
-          this.getCart()
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      const deleteCartAllModal = this.$refs.deleteCartAllModal
+      deleteCartAllModal.openModal()
     },
     clickNext (text) {
       emitter.emit('clickNext', text)
