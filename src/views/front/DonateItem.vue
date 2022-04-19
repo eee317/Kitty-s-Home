@@ -48,6 +48,7 @@
       </div>
       <donateModal :item="product" ref="productModal" @button-status='buttonStatus' @add-cart='addCart'></donateModal>
       <addDonateModal :item="productTitle" ref='addDonateModal'></addDonateModal>
+      <loadingPage :isLoading='isLoading'></loadingPage>
     </div>
 </template>
 <style lang="scss" scoped>
@@ -67,7 +68,8 @@ export default {
       buttonDisabled: true,
       products: [],
       product: {},
-      productTitle: {}
+      productTitle: {},
+      isLoading: false
     }
   },
   components: {
@@ -75,9 +77,11 @@ export default {
   },
   methods: {
     getProducts () {
+      this.isLoading = true
       this.$http(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/products/all`)
         .then(res => {
           this.products = res.data.products
+          this.isLoading = false
           console.log(res)
         })
     },

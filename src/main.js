@@ -1,3 +1,6 @@
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
 import 'bootstrap'
 import { createApp } from 'vue'
 import 'bootstrap-icons/font/bootstrap-icons.css'
@@ -9,6 +12,7 @@ import { localize, setLocale } from '@vee-validate/i18n'
 import zhTW from '@vee-validate/i18n/dist/locale/zh_TW.json'
 import App from './App.vue'
 import router from './router'
+import loadingPage from '@/components/loadingPage.vue'
 
 Object.keys(AllRules).forEach((rule) => {
   defineRule(rule, AllRules[rule])
@@ -25,4 +29,6 @@ app.use(VueAxios, axios)
 app.component('FormValidate', Form)
 app.component('FieldValidate', Field)
 app.component('ErrorMessage', ErrorMessage)
+app.component('loadingPage', loadingPage)
+app.component('LoadingTool', Loading)
 app.mount('#app')
