@@ -81,8 +81,9 @@ export default {
       this.$http(`${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/products/all`)
         .then(res => {
           this.products = res.data.products
-          this.isLoading = false
-          console.log(res)
+          setTimeout(() => {
+            this.isLoading = false
+          }, 500)
         })
     },
     openModal (product) {

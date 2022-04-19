@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid animated fadeIn">
     <div class="position-relative img-fluid" style='height:400px; background-size: cover; background-position: center;
     background-image:url("https://images.unsplash.com/photo-1545529468-42764ef8c85f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80")'>
       <div class='position-absolute top-50 start-50 translate-middle'>
@@ -78,20 +78,33 @@
       </div>
     </div>
   </div>
+  <loadingPage :isLoading='isLoading'></loadingPage>
 </template>
 <style lang="scss" scoped>
 .css-button {
   &:hover {
     color: white;
+    -webkit-animation: pulse 1s;
+    animation: pulse 1s;
   }
 }
 </style>
 <script>
 export default {
+  data () {
+    return {
+      isLoading: true
+    }
+  },
   methods: {
     clickDonateItemPage () {
       this.$router.push('/donate')
     }
+  },
+  mounted () {
+    setTimeout(() => {
+      this.isLoading = false
+    }, 800)
   }
 }
 </script>

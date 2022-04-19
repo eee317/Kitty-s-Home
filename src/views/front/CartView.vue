@@ -69,6 +69,7 @@
       type='button' class="btn btn-primary float-end" to="/cart/form"
       @click='clickNext("form")'>下一步</router-link>
   </div>
+  <loadingPage :isLoading='isLoading'></loadingPage>
 </template>
 <style lang="scss" scoped>
 .css-button {
@@ -89,7 +90,8 @@ export default {
   data () {
     return {
       cartData: [],
-      productTitle: null
+      productTitle: null,
+      isLoading: true
     }
   },
   mounted () {
@@ -100,8 +102,11 @@ export default {
       const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/cart`
       this.$http.get(url)
         .then(res => {
+          this.isLoading = true
           this.cartData = res.data.data
-          console.log(res)
+          setTimeout(() => {
+            this.isLoading = false
+          }, 400)
         })
         .catch(err => {
           console.log(err)

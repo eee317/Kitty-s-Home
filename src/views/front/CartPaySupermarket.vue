@@ -20,11 +20,11 @@
             <h5 class="card-title">超商繳費代碼</h5>
             <p class="card-text mt-3">LLL22 091 999 900</p>
             <p class="fw-lighter">請到機台輸入繳費代碼，並列印繳費單</p>
-            <p class="fw-lighter">繳費截止時間 <span class="text-danger">2022/04/08 15:24:14</span></p>
+            <p class="fw-lighter">繳費截止時間 <span class="text-danger">{{dateConversion()}} 23:59:59</span></p>
           </div>
         </div>
         <div class="col-md-6 d-flex justify-content-center align-items-center bg-light ">
-          <a class='' style="text-underline-offset: 6px; text-decoration-thickness: 1px;" href="https://www.ecpay.com.tw/Service/pay_way_cvpay">繳費流程說明</a>
+          <a class='p-4' style="text-underline-offset: 6px; text-decoration-thickness: 1px;" href="https://www.ecpay.com.tw/Service/pay_way_cvpay">繳費流程說明</a>
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class='mt-3 bg-light text-dark'>
+    <div class='mt-3 bg-light text-dark mb-5'>
       <div class='p-3'>
         <h4 class='ms-3 mt-3'>注意事項</h4>
         <ul class='text-secondary fw-lighter'>
@@ -59,3 +59,19 @@
     </div>
 </div>
 </template>
+<script>
+export default {
+  methods: {
+    dateConversion () {
+      const someDate = new Date()
+      const numberOfDaysToAdd = 7
+      someDate.setDate(someDate.getDate() + numberOfDaysToAdd)
+      const dd = someDate.getDate()
+      const mm = someDate.getMonth() + 1
+      const y = someDate.getFullYear()
+      const someFormattedDate = y + ' / ' + mm + ' / ' + dd
+      return someFormattedDate
+    }
+  }
+}
+</script>

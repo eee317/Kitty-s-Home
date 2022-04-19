@@ -1,8 +1,8 @@
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
-
 import 'bootstrap'
 import { createApp } from 'vue'
+import 'animate.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'

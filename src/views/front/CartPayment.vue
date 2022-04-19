@@ -130,12 +130,14 @@
       </FormValidate>
 </div>
   <router-link type='button' class="btn btn-primary mt-3 mb-3" to="/cart/form" @click='clickNext("cart")'>上一步</router-link>
+  <loadingPage :isLoading='isLoading'></loadingPage>
 </template>
 <script>
 import emitter from '@/libs/emitter'
 export default {
   data () {
     return {
+      isLoading: true,
       userOrder: {},
       userForm: {},
       userProducts: {},
@@ -155,6 +157,7 @@ export default {
       emitter.emit('render-cart')
     },
     getUserOrder () {
+      this.isLoading = true
       this.orderId = this.$route.params.id
       const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
       this.$http.get(url)
@@ -162,6 +165,9 @@ export default {
           this.userOrder = res.data.order
           this.userForm = this.userOrder.user
           this.userProducts = this.userOrder.products
+          setTimeout(() => {
+            this.isLoading = false
+          }, 200)
         })
         .catch(err => {
           console.log(err)
