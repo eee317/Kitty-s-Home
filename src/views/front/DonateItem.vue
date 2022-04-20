@@ -1,5 +1,5 @@
 <template>
-  <div class='container-fluid'>
+  <div class='container-fluid animated fadeIn'>
     <div class="img-fluid
             d-flex
             justify-content-center

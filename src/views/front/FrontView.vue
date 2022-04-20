@@ -1,6 +1,6 @@
 <template>
   <frontNavbar></frontNavbar>
-  <div class="container-fluid min-vh-100 g-0">
+  <div class="container-fluid min-vh-100 g-0 animated fadeIn">
     <router-view></router-view>
   </div>
   <footer class="bg-secondary" style="">

@@ -1,5 +1,5 @@
 <template>
-  <div v-if='cartData?.carts?.length===0'>
+  <div v-if='cartData?.carts?.length===0' class='animated fadeIn'>
     <div class="
             p-3 p-md-5
             d-flex
