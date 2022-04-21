@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted () {
-    this.modal = new Modal(this.$refs.deleteAllModal, { keyboard: false })
+    this.modal = new Modal(this.$refs.deleteAllModal, { keyboard: false, backdrop: false })
   }
 }
 </script>

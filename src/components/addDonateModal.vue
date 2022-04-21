@@ -31,7 +31,7 @@ export default {
     }
   },
   mounted () {
-    this.modal = new Modal(this.$refs.addModal, { keyboard: false })
+    this.modal = new Modal(this.$refs.addModal, { keyboard: false, backdrop: false })
   }
 }
 </script>
