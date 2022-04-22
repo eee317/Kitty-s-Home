@@ -13,7 +13,7 @@
           <div class="form-floating mb-3">
             <FieldValidate
               type="email"
-              class="form-control"
+              class="form-control text-primary"
               id="username"
               placeholder="name@example.com"
               required
@@ -29,7 +29,7 @@
           <div class="form-floating">
             <FieldValidate
               type="password"
-              class="form-control"
+              class="form-control text-primary"
               id="password"
               placeholder="Password"
               required
