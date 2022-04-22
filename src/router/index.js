@@ -51,7 +51,21 @@ const routes = [
   },
   {
     path: '/admin',
-    component: () => import('../views/dashboard/DashboardView.vue')
+    component: () => import('../views/dashboard/DashboardView.vue'),
+    children: [
+      {
+        path: '',
+        component: () => import('../views/dashboard/CollectionOrder.vue')
+      },
+      {
+        path: 'donate',
+        component: () => import('../views/dashboard/AdminDonate.vue')
+      }
+    ]
+  },
+  {
+    path: '/login',
+    component: () => import('../views/dashboard/LoginView.vue')
   }
 ]
 
