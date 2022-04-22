@@ -715,7 +715,7 @@ $table-active-bg-factor:      .1 !default;
 $table-active-bg:             rgba($black, $table-active-bg-factor) !default;
 
 $table-hover-color:           $table-color !default;
-$table-hover-bg-factor:       .075 !default;
+$table-hover-bg-factor:       .04 !default;//.075 !default;
 $table-hover-bg:              rgba($black, $table-hover-bg-factor) !default;
 
 $table-border-factor:         .1 !default;
@@ -1239,7 +1239,7 @@ $pagination-active-color:           $component-active-color !default;
 $pagination-active-bg:              $component-active-bg !default;
 $pagination-active-border-color:    $pagination-active-bg !default;
 
-$pagination-disabled-color:         $gray-600 !default;
+$pagination-disabled-color:         $gray-300 !default;//$gray-600 !default;
 $pagination-disabled-bg:            $white !default;
 $pagination-disabled-border-color:  $gray-300 !default;
 
