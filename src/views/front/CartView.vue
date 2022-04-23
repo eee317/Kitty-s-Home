@@ -63,7 +63,7 @@
       </tfoot>
     </table>
     <deleteCartItemModal :item="productTitle" ref='deleteCartItemModal' @get-cart='getCart'></deleteCartItemModal>
-    <deleteCaerAllModal :environment='environment' ref='deleteCartAllModal' @get-cart='getCart'></deleteCaerAllModal>
+    <deleteCaerAllModal :environment='"cart"' ref='deleteCartAllModal' @get-cart='getCart'></deleteCaerAllModal>
     <router-link type='button' class="btn btn-primary" to="/donate">返回捐款款項</router-link>
     <router-link :class="{disabled:cartData?.carts?.length===0}"
       type='button' class="btn btn-primary float-end" to="/cart/form"
@@ -89,7 +89,6 @@ export default {
   },
   data () {
     return {
-      environment: 'cart',
       cartData: [],
       productTitle: null,
       isLoading: true

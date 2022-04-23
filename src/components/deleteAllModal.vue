@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" tabindex="-1" ref='deleteAllModal' id="deleteAllModal">
+  <div class="modal fade" tabindex="-1" ref='deleteAllModal' id="deleteAllModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
