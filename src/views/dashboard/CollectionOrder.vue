@@ -1,6 +1,26 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-11">
+    <div v-if='orders.length === 0' class="col-10">
+      <div class="
+            p-3 p-md-5
+            d-flex
+            justify-content-center
+            align-items-center
+            flex-column
+            text-center
+            lh-lg
+          ">
+        <h2 class='text-secondary'>目前沒有收款項目</h2>
+      </div>
+      <img
+        width="400"
+        class="img-fluid"
+        src="@/libs/img/OrderNone_undraw_autumn.svg"
+        alt="目前沒有收款項目"
+        style="display:block; margin:auto;"
+      />
+    </div>
+    <div v-else class="col-11">
       <button type="button" class="btn btn-outline-secondary css-button mt-5 float-end" @click='deleteAllModal'>刪除全部</button>
       <table class='table mt-4 text-center table-hover'>
         <thead>
@@ -41,7 +61,7 @@
                   </a>
                   <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item text-primary" href="#">編輯</a></li>
-                    <li><a class="dropdown-item text-primary" href="#" @click.prevent='deleteThisOrder(order)'>刪除</a></li>
+                    <li><a class="dropdown-item text-primary" href="#" @click.prevent='openModal(order, "delete")'>刪除</a></li>
                   </ul>
                 </div>
               </td>
@@ -49,10 +69,11 @@
           </template>
         </tbody>
       </table>
+      <pagination-page :pages='pagination' @getOrder='getOrder'></pagination-page>
     </div>
   </div>
-  <delete-all-modal :environment="order" @get-order='getOrder' ref='deleteOrderAllModal'></delete-all-modal>
-  <pagination-page :pages='pagination' @getOrder='getOrder'></pagination-page>
+  <delete-all-modal :environment="'order'" @get-order='getOrder' ref='deleteOrderAllModal'></delete-all-modal>
+  <delete-order-modal :order='tempOrder' @get-order='getOrder' ref='deleteThisOrderModal'></delete-order-modal>
 </template>
 <style lang="scss" scoped>
   .dropdown-toggle::after {
@@ -67,13 +88,13 @@
 <script>
 import deleteAllModal from '@/components/deleteAllModal.vue'
 import paginationPage from '@/components/PaginationElement.vue'
+import deleteOrderModal from '@/components/deleteThisOrder.vue'
 export default {
   components: {
-    paginationPage, deleteAllModal
+    paginationPage, deleteAllModal, deleteOrderModal
   },
   data () {
     return {
-      environment: 'order',
       orders: {},
       pagination: {},
       tempOrder: {}
@@ -97,18 +118,14 @@ export default {
           console.dir(err)
         })
     },
-    deleteThisOrder (order) {
-      const url = `${process.env.VUE_APP_API}/v2/api/${process.env.VUE_APP_PATH}/admin/order/${order.id}`
-      this.$http
-        .delete(url)
-        .then(res => {
-          alert(`已刪除${order.user.email}`)
-          this.getOrder()
-        })
-        .catch(err => {
-          console.dir(err)
-        })
+    openModal (order, state) {
+      if (state === 'delete') {
+        this.tempOrder = { ...order }
+        const deleteThisOrderModal = this.$refs.deleteThisOrderModal
+        deleteThisOrderModal.openModal()
+      }
     },
+
     deleteAllModal () {
       const deleteAllModal = this.$refs.deleteOrderAllModal
       deleteAllModal.openModal()
