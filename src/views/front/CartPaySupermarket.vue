@@ -1,4 +1,5 @@
 <template>
+<!-- 本頁圖片、文字參考來源：綠界金流 -->
 <div class="container">
     <div class="card mt-3" style="">
       <div class="row g-0">
@@ -6,7 +7,7 @@
           <img src="https://www.opay.tw/Content/themes/WebStyle20151116/images/Kiosk_stepC_2.png" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
-          <div class="card-body">
+          <div class="card-body text-primary">
             <h5 class="card-title">超商代碼捐款</h5>
             <p class="card-text">請至超商機台輸入代碼，產生繳費單後到櫃檯付款，完成捐款</p>
           </div>
@@ -16,7 +17,7 @@
     <div class="card mt-3" style="">
       <div class="row g-0">
         <div class="col-md-6">
-          <div class="card-body">
+          <div class="card-body text-primary">
             <h5 class="card-title">超商繳費代碼</h5>
             <p class="card-text mt-3">LLL22 091 999 900</p>
             <p class="fw-lighter">請到機台輸入繳費代碼，並列印繳費單</p>
@@ -29,7 +30,7 @@
       </div>
     </div>
     <div class="card mt-3" style="">
-      <div class="card-header">
+      <div class="card-header bg-light text-primary">
         適用代碼捐款的超商
       </div>
       <div class="row g-3 m-4">
@@ -46,7 +47,7 @@
     </div>
     <div class='mt-3 bg-light text-dark mb-5'>
       <div class='p-3'>
-        <h4 class='ms-3 mt-3'>注意事項</h4>
+        <h4 class='ms-3 mt-3 text-primary'>注意事項</h4>
         <ul class='text-secondary fw-lighter'>
           <li>同一繳費代碼請勿重複繳款</li>
           <li>本訂單超商代碼的繳費期限為 7 天 ，請務必於期限內進行繳款</li>
