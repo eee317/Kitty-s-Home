@@ -100,7 +100,7 @@ export default {
         .then(res => {
           console.log('signin', res)
           const { token, expired } = res.data
-          document.cookie = `hexToken=${token}; expires=${new Date(
+          document.cookie = `hexTokenHomework=${token}; expires=${new Date(
             expired
           )}; path=/`
           alert(res.data.message)

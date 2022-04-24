@@ -32,7 +32,7 @@ export default {
   methods: {
     checkLogin () {
       const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
+        /(?:(?:^|.*;\s*)hexTokenHomework\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       )
       if (token) {
@@ -52,7 +52,7 @@ export default {
       }
     },
     signout () {
-      document.cookie = 'hexToken=;expires=;'
+      document.cookie = 'hexTokenHomework=;expires=;'
       alert('已登出')
       this.$router.push('/login')
     }
