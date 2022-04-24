@@ -24,7 +24,7 @@ export default {
   props: ['pages'],
   methods: {
     updatePage (page) {
-      this.$emit('getOrder', page)
+      this.$emit('get-order', page)
     }
   }
 }

@@ -25,7 +25,7 @@
       <table class='table mt-4 text-center table-hover'>
         <thead>
           <tr>
-            <th>捐款時間</th>
+            <th>捐款建立時間</th>
             <th>Email</th>
             <th>捐款方式</th>
             <th>捐款金額</th>
@@ -36,11 +36,8 @@
         <tbody>
           <template v-for='(order, key) in orders' :key='key+"order"'>
             <tr>
-              <td v-if='order.user.method==="信用卡"'>
+              <td>
                 {{order.create_at}}
-              </td>
-              <td v-else>
-                -
               </td>
               <td>
                 {{order.user.email}}
@@ -69,11 +66,11 @@
           </template>
         </tbody>
       </table>
-      <pagination-page :pages='pagination' @getOrder='getOrder'></pagination-page>
+      <pagination-page :pages='pagination' @get-order='getOrder'></pagination-page>
     </div>
   </div>
   <delete-all-modal :environment="'order'" @get-order='getOrder' ref='deleteOrderAllModal'></delete-all-modal>
-  <delete-order-modal :order='tempOrder' @get-order='getOrder' ref='deleteThisOrderModal'></delete-order-modal>
+  <delete-order-modal :order='tempOrder' @get-order='getOrder' ref='deleteItOrderModal'></delete-order-modal>
 </template>
 <style lang="scss" scoped>
   .dropdown-toggle::after {
@@ -121,8 +118,8 @@ export default {
     openModal (order, state) {
       if (state === 'delete') {
         this.tempOrder = { ...order }
-        const deleteThisOrderModal = this.$refs.deleteThisOrderModal
-        deleteThisOrderModal.openModal()
+        const deleteItOrderModal = this.$refs.deleteItOrderModal
+        deleteItOrderModal.openModal()
       }
     },
 

@@ -6,11 +6,11 @@
           <h5 class="modal-title">確定要刪除？</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <p>{{order?.user?.email}}的捐款資料</p>
+        <div class="modal-body text-center">
+          <p class='mt-3'>刪除「 {{order?.user?.email}} 」捐款資料</p>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+        <div class="d-flex justify-content-between m-4">
+          <button type="button" class="btn btn-secondary float-start text-white" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-primary"
           @click="deleteThisOrder"
           data-bs-target="#modalToggle" data-bs-toggle="modal"
@@ -31,7 +31,8 @@
           已刪除 {{order?.user?.email}} 的捐款資料
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" aria-label="Close" data-bs-toggle="modal">確定</button>
+          <button @click='hideModal'
+          class="btn btn-primary" aria-label="Close" data-bs-toggle="modal">確定</button>
         </div>
       </div>
     </div>
