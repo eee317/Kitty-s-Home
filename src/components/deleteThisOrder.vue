@@ -13,34 +13,20 @@
           <button type="button" class="btn btn-secondary float-start text-white" data-bs-dismiss="modal">取消</button>
           <button type="button" class="btn btn-primary"
           @click="deleteThisOrder"
-          data-bs-target="#modalToggle" data-bs-toggle="modal"
           >確定</button>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="modalToggle"
-  aria-hidden="true" aria-labelledby="modalToggleLabel" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalToggleLabel">刪除成功</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          已刪除 {{order?.user?.email}} 的捐款資料
-        </div>
-        <div class="modal-footer">
-          <button @click='hideModal'
-          class="btn btn-primary" aria-label="Close" data-bs-toggle="modal">確定</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <deleteConfirmModal :order='order' ref='delConfirmModal'></deleteConfirmModal>
 </template>
 <script>
 import Modal from 'bootstrap/js/dist/modal'
+import deleteConfirmModal from '@/components/secondComponents/deleteConfirmModal.vue'
 export default {
+  components: {
+    deleteConfirmModal
+  },
   props: {
     order: {}
   },
@@ -57,6 +43,9 @@ export default {
         .delete(url)
         .then(res => {
           this.$emit('get-order')
+          this.hideModal()
+          const delConfirmModal = this.$refs.delConfirmModal
+          delConfirmModal.openModal()
         })
         .catch(err => {
           console.dir(err)
