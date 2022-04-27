@@ -37,27 +37,27 @@
           <template v-for='(order, key) in orders' :key='key+"order"'>
             <tr>
               <td>
-                {{order.create_at}}
+                {{creatDate(order.create_at)}}<br>{{creatTime(order.create_at)}}
               </td>
-              <td>
+              <td class='css-text'>
                 {{order.user.email}}
               </td>
-              <td>
+              <td class='css-text'>
                 {{order.user.method}}
               </td>
-              <td>
+              <td class='css-text'>
                 {{order.total}}
               </td>
-              <td>
+              <td class='css-text'>
                 {{order.is_paid?'是':'否'}}
               </td>
               <td>
                 <div class="dropdown">
                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-gear-fill"></i>
+                    <i class="bi bi-gear-fill css-text"></i>
                   </a>
                   <ul class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item text-primary" href="#">編輯</a></li>
+                    <li><a class="dropdown-item text-primary" href="#" @click.prevent="openModal(order,'edit')">檢視</a></li>
                     <li><a class="dropdown-item text-primary" href="#" @click.prevent='openModal(order, "delete")'>刪除</a></li>
                   </ul>
                 </div>
@@ -71,6 +71,7 @@
   </div>
   <delete-all-modal :environment="'order'" @get-order='getOrder' ref='deleteOrderAllModal'></delete-all-modal>
   <delete-order-modal :order='tempOrder' @get-order='getOrder' ref='deleteItOrderModal'></delete-order-modal>
+  <order-modal :order='tempOrder' ref='orderModal'></order-modal>
 </template>
 <style lang="scss" scoped>
   .dropdown-toggle::after {
@@ -81,14 +82,18 @@
       color: white;
     }
   }
+  .css-text {
+    line-height: 45px;
+  }
 </style>
 <script>
 import deleteAllModal from '@/components/deleteAllModal.vue'
 import paginationPage from '@/components/PaginationElement.vue'
 import deleteOrderModal from '@/components/deleteThisOrder.vue'
+import orderModal from '@/components/OrderModal.vue'
 export default {
   components: {
-    paginationPage, deleteAllModal, deleteOrderModal
+    paginationPage, deleteAllModal, deleteOrderModal, orderModal
   },
   data () {
     return {
@@ -120,12 +125,32 @@ export default {
         this.tempOrder = { ...order }
         const deleteItOrderModal = this.$refs.deleteItOrderModal
         deleteItOrderModal.openModal()
+      } else if (state === 'edit') {
+        this.tempOrder = { ...order }
+        const orderModal = this.$refs.orderModal
+        orderModal.openModal()
       }
     },
 
     deleteAllModal () {
       const deleteAllModal = this.$refs.deleteOrderAllModal
       deleteAllModal.openModal()
+    },
+    creatDate (second) {
+      const time = new Date(second * 1000)
+      const year = time.getFullYear()
+      const month = time.getMonth() + 1
+      const day = time.getDate()
+      const timeText = `${year} / ${month} / ${day}`
+      return timeText
+    },
+    creatTime (second) {
+      const time = new Date(second * 1000)
+      const hours = time.getHours()
+      const minute = time.getMinutes()
+      const getSecond = time.getSeconds()
+      const timeText = `${hours} 點 ${minute} 分 ${getSecond} 秒`
+      return timeText
     }
   }
 }
