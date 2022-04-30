@@ -3,10 +3,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{order?.user?.email}}</h5>
+        <h5 class="modal-title text-primary" id="exampleModalLabel">{{order?.user?.email}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <h5 class='text-secondary my-4 ms-2'>捐款內容</h5>
+        <table class="table">
+          <thead></thead>
+          <tbody>
+            <tr v-for='(products, key) in order.products' :key='key+"products"'>
+              <td v-for='(product, key) in products' :key='key+"product"'>{{product.title}}</td>
+              <td>{{products.qty}}件</td>
+              <th>＄{{products.total}}元</th>
+            </tr>
+          </tbody>
+        </table>
+        <h6 class='text-secondary mb-3 me-4 float-end'>共捐款 {{order.total}} 元</h6>
         <table class="table">
           <thead>
             <tr>
@@ -17,26 +29,37 @@
           <tbody>
             <tr>
               <td>信箱</td>
-              <td>123</td>
+              <td>{{order?.user?.email}}</td>
             </tr>
             <tr>
               <td>捐款身份</td>
-              <td>Thornton</td>
+              <td>{{order?.user?.companyID?'公司行號':'個人'}}</td>
             </tr>
             <tr>
               <td>捐款者手機</td>
-              <td>@twitter</td>
+              <td>{{order?.user?.tel}}</td>
             </tr>
             <tr>
               <td>捐款者姓名</td>
-              <td>@twitter</td>
+              <td>{{order?.user?.name}}</td>
+            </tr>
+            <tr>
+              <td>地址</td>
+              <td>{{order?.user?.address}}</td>
+            </tr>
+            <tr v-if='order?.user?.identity==="company"'>
+              <td>公司名稱與統編</td>
+              <td>{{order?.user?.companyName}} / 統編：{{order?.user?.companyID}}</td>
+            </tr>
+            <tr v-if='order?.user?.identity==="company"'>
+              <td>公司電話</td>
+              <td>{{order?.user?.companyPhone}}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">關閉</button>
       </div>
     </div>
   </div>
