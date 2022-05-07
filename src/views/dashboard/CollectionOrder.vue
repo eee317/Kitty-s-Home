@@ -27,7 +27,9 @@
           <tr>
             <th>捐款建立時間</th>
             <th>Email</th>
-            <th>捐款方式</th>
+            <th>
+              捐款方式
+            </th>
             <th>捐款金額</th>
             <th>是否已捐款</th>
             <th></th>

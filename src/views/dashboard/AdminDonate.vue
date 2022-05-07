@@ -2,7 +2,7 @@
   <div class="contianer">
     <div class="row justify-content-center">
       <div class="col-11">
-        <button class="btn btn-primary float-end mt-3">建立捐款物品</button>
+        <button class="btn btn-primary float-end mt-3" @click='openModal("", "new")'>建立捐款物品</button>
         <table class="table text-center">
           <thead>
             <tr>
@@ -39,7 +39,7 @@
                       <a
                         class="dropdown-item text-primary"
                         href="#"
-                        @click.prevent="openModal(order, 'edit')"
+                        @click.prevent="openModal(product, 'edit')"
                         >編輯</a
                       >
                     </li>
@@ -47,7 +47,7 @@
                       <a
                         class="dropdown-item text-primary"
                         href="#"
-                        @click.prevent="openModal(order, 'delete')"
+                        @click.prevent="openModal(product, 'delete')"
                         >刪除</a
                       >
                     </li>
@@ -61,6 +61,8 @@
     </div>
   </div>
   <pagination :pages='paginationData' @get-order='getProducts'></pagination>
+  <delete-donate :donate='tempProduct' @get-order='getProducts' ref='deleteDonateModal'></delete-donate>
+  <edit-modal :donate='tempProduct' ref='editModal' @get-order='getProducts' :state='state'></edit-modal>
 </template>
 <style lang="scss" scoped>
   .dropdown-toggle::after {
@@ -72,14 +74,18 @@
 </style>
 <script>
 import pagination from '@/components/PaginationElement.vue'
+import editModal from '@/components/EditDonate.vue'
+import deleteDonate from '@/components/deleteThisDonate.vue'
 export default {
   components: {
-    pagination
+    pagination, deleteDonate, editModal
   },
   data () {
     return {
       paginationData: {},
-      products: {}
+      products: {},
+      tempProduct: {},
+      state: true
     }
   },
   methods: {
@@ -94,6 +100,23 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    openModal (product, state) {
+      if (state === 'delete') {
+        this.tempProduct = { ...product }
+        const deleteDonateModal = this.$refs.deleteDonateModal
+        deleteDonateModal.openModal()
+      } else if (state === 'edit') {
+        this.tempProduct = JSON.parse(JSON.stringify(product))
+        const editModal = this.$refs.editModal
+        this.state = false
+        editModal.openModal()
+      } else if (state === 'new') {
+        this.tempProduct = {}
+        this.state = true
+        const editModal = this.$refs.editModal
+        editModal.openModal()
+      }
     }
   },
   mounted () {
